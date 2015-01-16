@@ -1,0 +1,48 @@
+<!DOCTYPE TITAN_GUI_project_file>
+<Project>
+    <General>
+        <Project_Name>HTTP_test</Project_Name>
+        <Executable_Path>../bin/HTTP_test</Executable_Path>
+        <Working_Dir>../bin</Working_Dir>
+        <Build_Host>alpha</Build_Host>
+        <Execution_Mode>Parallel</Execution_Mode>
+        <ScriptFile_AfterMake>lssl_script</ScriptFile_AfterMake>
+        <Log_Format>yes</Log_Format>
+        <Update_Symlinks>yes</Update_Symlinks>
+        <Create_Absolute_Symlinks>no</Create_Absolute_Symlinks>
+        <Update_Makefile>yes</Update_Makefile>
+        <Localhost_Execute>yes</Localhost_Execute>
+        <Execute_Command>rsh %host &quot;cd %project_working_dir ; &quot;%executable&quot; %localhost %mctr_port&quot;</Execute_Command>
+        <Execute_Hosts>alfa, beta, gamma</Execute_Hosts>
+        <UnUsed_List></UnUsed_List>
+    </General>
+    <Modules>
+        <Module>../src/HTTPmsg_PortType.ttcn</Module>
+        <Module>../src/HTTPmsg_Types.ttcn</Module>
+        <Module>HTTP_Test_no_ASPs.ttcn</Module>
+    </Modules>
+    <TestPorts>
+        <TestPort>../src/HTTPmsg_PT.cc</TestPort>
+        <TestPort>../src/HTTPmsg_PT.hh</TestPort>
+    </TestPorts>
+    <Other_Sources>
+        <Other_Source>../../Common_Components/Abstract_Socket_CNL113384/src/Abstract_Socket.cc</Other_Source>
+        <Other_Source>../../Common_Components/Abstract_Socket_CNL113384/src/Abstract_Socket.hh</Other_Source>
+    </Other_Sources>
+    <Configs>
+        <Config>HTTP_Test.cfg</Config>
+    </Configs>
+    <Test_Cases>
+        <Test_Case>HTTP_Test_no_ASPs.control</Test_Case>
+        <Test_Case>HTTP_Test_no_ASPs.parallel_TC_client</Test_Case>
+        <Test_Case>HTTP_Test_no_ASPs.parallel_TC_server</Test_Case>
+        <Test_Case>HTTP_Test_no_ASPs.stress_TC_Persistent_both</Test_Case>
+        <Test_Case>HTTP_Test_no_ASPs.server_testcase</Test_Case>
+        <Test_Case>HTTP_Test_no_ASPs.client_testcase</Test_Case>
+    </Test_Cases>
+    <Others>
+        <Other>lssl_script</Other>
+        <Other>server.crt</Other>
+        <Other>server.key</Other>
+    </Others>
+</Project>

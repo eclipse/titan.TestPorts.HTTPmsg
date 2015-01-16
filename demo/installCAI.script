@@ -1,0 +1,80 @@
+#! /bin/sh 
+# Run this script from _MAIN library. It will create links in bin to all necessary
+# files. If you store test ports in different location set TESTPORT_PATH variable first,
+# so that this script can locate test port files.
+
+# Create bin/ directory if does not exist
+if [ ! -d ../bin2 ] ; then mkdir ../bin2 ; fi 
+
+# Creating softlinks from main & protocols' directories
+#
+# Linking non-protocol-bound files 
+
+
+# NOTE: after creating dependencies using the make utility the soft link in the bin
+# directory is overwritten with a new Makefile; copy this new Makefile back to the
+# _Main directory if you want to preserve it.
+ln -sf ../_Main/MakefileCAI                          ../bin2/Makefile
+
+#Test Execution
+
+ln -sf ../CAI/PortMappingTelnet.ttcn                ../bin2
+ln -sf ../_Main/CAIConfigBuild.ttcn                 ../bin2
+ln -sf ../_Main/TestExecCAI.ttcn                    ../bin2
+ln -sf ../_Main/TestExecCAI.cfg                     ../bin2
+
+
+
+# Linking CAI files
+
+tmppath=${PROTOCOLMODULE_PATH:-'/vobs/ttcn/TCC_Common/ProtocolModules/CAI_CNL113422/src'}
+
+ln -sf $tmppath/CAITopLevel.ttcn                          ../bin2 
+ln -sf $tmppath/CAICommonDefinitions.ttcn                 ../bin2 
+ln -sf $tmppath/CAI_Cms11AC.ttcn                          ../bin2 
+ln -sf $tmppath/CAI_Cms11Hlr.ttcn                         ../bin2 
+ln -sf $tmppath/CAI_FmcCac.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmAAA.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmAuc.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmEir.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmFnr.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmHlr.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmMMC.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmMML.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmMMS.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmMc.ttcn                            ../bin2 
+ln -sf $tmppath/CAI_GsmMoIP.ttcn                          ../bin2 
+ln -sf $tmppath/CAI_GsmMpc.ttcn                           ../bin2
+ln -sf $tmppath/CAI_GsmPps.ttcn                           ../bin2
+ln -sf $tmppath/CAI_GsmVIG.ttcn                           ../bin2  
+ln -sf $tmppath/CAI_Imsich.ttcn                           ../bin2 
+ln -sf $tmppath/CAI_GsmGMRM.ttcn                          ../bin2  
+ln -sf $tmppath/CAI_GsmIPMM.ttcn                          ../bin2  
+ln -sf $tmppath/CAI_GsmFBC.ttcn                           ../bin2  
+ln -sf $tmppath/CAI_EMM2_1.ttcn                           ../bin2  
+ln -sf $tmppath/CAI_EMM2_0.ttcn                           ../bin2
+ln -sf $tmppath/CAI_MINSAT.ttcn                           ../bin2  
+ln -sf $tmppath/CAI_IMT3_0.ttcn                           ../bin2
+ln -sf $tmppath/CAI_EPC1_0.ttcn                           ../bin2
+
+#Encoders
+ln -sf $tmppath/CAI_EncDec.cc                       ../bin2 
+ln -sf ../CAI/CAI_DecEnc.cc                         ../bin2 
+
+
+# Linking test ports
+
+tmppath=${TESTPORT_PATH:-'/vobs/ttcn/TCC_Common/TestPorts'}
+
+ln -sf $tmppath/TELNETasp_CNL113320/src/TELNETasp_PT.cc                       ../bin2
+ln -sf $tmppath/TELNETasp_CNL113320/src/TELNETasp_PT.hh                       ../bin2
+ln -sf $tmppath/TELNETasp_CNL113320/src/TELNETasp_PortType.ttcn               ../bin2
+ln -sf $tmppath/HTTPmsg_CNL113312/src/HTTPmsg_Types.ttcn                      ../bin2
+ln -sf $tmppath/HTTPmsg_CNL113312/src/HTTPmsg_PT.cc                           ../bin2
+ln -sf $tmppath/HTTPmsg_CNL113312/src/HTTPmsg_PT.hh                           ../bin2
+ln -sf $tmppath/HTTPmsg_CNL113312/src/HTTPmsg_PortType.ttcn                   ../bin2
+
+tmppath=${TESTPORT_PATH:-'/vobs/ttcn/TCC_Releases/TestPorts'}
+
+ln -sf $tmppath/Common_Components/Abstract_Socket_CNL113384/src/Abstract_Socket.cc ../bin2
+ln -sf $tmppath/Common_Components/Abstract_Socket_CNL113384/src/Abstract_Socket.hh ../bin2

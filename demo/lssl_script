@@ -1,0 +1,12 @@
+#!/bin/sh
+
+editcmd='
+
+s/OPENSSL_DIR = $(TTCN3_DIR)/OPENSSL_DIR = \/mnt\/TTCN\/Tools\/openssl-0.9.8e/g
+
+s/CPPFLAGS = -D$(PLATFORM) -I$(TTCN3_DIR)\/include/CPPFLAGS = -D$(PLATFORM) -DAS_USE_SSL -I$(TTCN3_DIR)\/include -I$(OPENSSL_DIR)\/include/g
+
+s/ -lcrypto/ -L$(OPENSSL_DIR)\/lib -lssl -lcrypto/g
+'
+sed -e "$editcmd" <$1 >$2
+
