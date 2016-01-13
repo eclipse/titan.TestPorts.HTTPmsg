@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.hh
 //  Description:        HTTP test port header file
-//  Rev:                R8D
+//  Rev:                R8F
 //  Prodnr:             CNL 113 469
 
 
@@ -99,6 +99,7 @@ protected:
     virtual bool add_user_data(int client_id);
     virtual bool remove_user_data(int client_id);
     virtual int  send_message_on_fd(int client_id, const unsigned char * message_buffer, int length_of_message);
+    virtual int  send_message_on_nonblocking_fd(int client_id, const unsigned char * message_buffer, int length_of_message);
     virtual int  receive_message_on_fd(int client_id);
     virtual void client_connection_opened(int client_id);
     virtual void listen_port_opened(int port_number);    

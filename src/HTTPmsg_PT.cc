@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.cc
 //  Description:        HTTP test port implementation
-//  Rev:                R8D
+//  Rev:                R8F
 //  Prodnr:             CNL 113 469
 
 
@@ -459,6 +459,22 @@ int HTTPmsg__PT::send_message_on_fd(int client_id, const unsigned char * message
     return Abstract_Socket::send_message_on_fd(client_id, message_buffer, length_of_message);
 }
 
+int HTTPmsg__PT::send_message_on_nonblocking_fd(int client_id, const unsigned char * message_buffer, int length_of_message)
+{
+    log_debug("entering HTTPmsg__PT::(client_id: %d)", client_id);
+
+#ifdef AS_USE_SSL
+    if(get_user_data(client_id))
+    {
+        // INFO: it is assumed that only SSL_Socket assigns user data to each peer
+        log_debug("leaving HTTPmsg__PT::send_message_on_nonblocking_fd() with returning SSL_Socket::send_message_on_nonblocking_fd()");
+        return SSL_Socket::send_message_on_nonblocking_fd(client_id, message_buffer, length_of_message);
+    }
+#endif
+
+    log_debug("leaving HTTPmsg__PT::send_message_on_nonblocking_fd() with returning Abstract_Socket::send_message_on_nonblocking_fd()");
+    return Abstract_Socket::send_message_on_nonblocking_fd(client_id, message_buffer, length_of_message);
+}
 
 // HTTP specific functions
 
@@ -1007,9 +1023,9 @@ void HTTP_decode_chunked_body(TTCN_Buffer* buffer, OCTETSTRING& body, Decoding_P
         HTTPmsg__Types::log_debug(socket_debugging, test_port_type, test_port_name,  "pull %d bytes from %d", chunk_size, buffer->get_read_len());
         buffer->set_pos(buffer->get_pos() + chunk_size);
         // hack
-        if(buffer->get_read_data()[0] == '\n')
+        if(buffer->get_read_len() && buffer->get_read_data()[0] == '\n')  // don't read from the buffer if there is nothing in it.
         {
-            TTCN_Logger::log(TTCN_WARNING, "hack: adjusted buffer position after the '\\n'");
+            HTTPmsg__Types::log_debug(socket_debugging, test_port_type, test_port_name,"hack: adjusted buffer position after the '\\n'");
             buffer->set_pos(buffer->get_pos() + 1);
         }
         HTTPmsg__Types::log_debug(socket_debugging, test_port_type, test_port_name,  "remaining data: <%s>, len: %d", (const char *)CHARSTRING(buffer->get_read_len(), (const char*)buffer->get_read_data()), buffer->get_read_len());
