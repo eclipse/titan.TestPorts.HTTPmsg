@@ -16,7 +16,7 @@
 //
 //  File:               HTTPmsg_MessageLen.ttcn
 //  Description:        HTTP Message length calculator
-//  Rev:                R8F
+//  Rev:                R8G
 //  Prodnr:             CNL 113 469
 
 module HTTPmsg_MessageLen{

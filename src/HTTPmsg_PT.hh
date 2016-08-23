@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.hh
 //  Description:        HTTP test port header file
-//  Rev:                R8F
+//  Rev:                R8G
 //  Prodnr:             CNL 113 469
 
 

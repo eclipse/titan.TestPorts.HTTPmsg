@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.cc
 //  Description:        HTTP test port implementation
-//  Rev:                R8F
+//  Rev:                R8G
 //  Prodnr:             CNL 113 469
 
 
@@ -693,7 +693,8 @@ bool f_HTTP_decodeCommon( TTCN_Buffer* buffer, HTTPmsg__Types::HTTPMessage& msg,
             method_name[pos - cc_first] = '\0';
 
             char* stext = (char*)Malloc(strlen(cc_first));
-
+            stext[0] = '\0';
+	    
             TTCN_Logger::log(TTCN_DEBUG, "method_name: <%s>", method_name);
             if(strncasecmp(method_name, "HTTP/", 5) == 0)
             {
@@ -701,7 +702,7 @@ bool f_HTTP_decodeCommon( TTCN_Buffer* buffer, HTTPmsg__Types::HTTPMessage& msg,
                 isResponse = true;
 
                 if(sscanf(cc_first, "HTTP/%d.%d %d %[^\r]", &version__major, &version__minor,
-                          &statusCode, stext) != 4)
+                          &statusCode, stext) < 3)
                 {
                     decoding_params.isMessage = FALSE;
                     decoding_params.error = TRUE;

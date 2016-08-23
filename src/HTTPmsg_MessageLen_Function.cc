@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_MessageLen_Function.cc
 //  Description:        HTTP Message length calculator
-//  Rev:                R8F
+//  Rev:                R8G
 //  Prodnr:             CNL 113 469
 
 #include "HTTPmsg_PT.hh"
