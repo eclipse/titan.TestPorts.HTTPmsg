@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2016 Ericsson
+ Copyright (c) 2017 Ericsson
 
   All rights reserved. This program and the accompanying materials
   are made available under the terms of the Eclipse Public License v1.0
@@ -10,7 +10,7 @@
 
    File:               HTTPmsg_CNL113312.tpd
    Description:        tpd project file
-   Rev:                R8G
+   Rev:                R9B
    Prodnr:             CNL 113 312
 
  -->
@@ -20,13 +20,9 @@
     <ReferencedProject name="Abstract_Socket_CNL113384" projectLocationURI="../Common_Components/Abstract_Socket_CNL113384/Abstract_Socket_CNL113384.tpd"/>
   </ReferencedProjects>
   <Folders>
-    <FolderResource projectRelativePath="doc" relativeURI="doc"/>
     <FolderResource projectRelativePath="src" relativeURI="src"/>
   </Folders>
   <Files>
-    <FileResource projectRelativePath="doc/HTTPmsg_CNL113312_FS.pdf" relativeURI="doc/HTTPmsg_CNL113312_FS.pdf"/>
-    <FileResource projectRelativePath="doc/HTTPmsg_CNL113312_PRI.pdf" relativeURI="doc/HTTPmsg_CNL113312_PRI.pdf"/>
-    <FileResource projectRelativePath="doc/HTTPmsg_CNL113312_UG.pdf" relativeURI="doc/HTTPmsg_CNL113312_UG.pdf"/>
     <FileResource projectRelativePath="src/HTTPmsg_MessageLen.ttcn" relativeURI="src/HTTPmsg_MessageLen.ttcn"/>
     <FileResource projectRelativePath="src/HTTPmsg_MessageLen_Function.cc" relativeURI="src/HTTPmsg_MessageLen_Function.cc"/>
     <FileResource projectRelativePath="src/HTTPmsg_PT.cc" relativeURI="src/HTTPmsg_PT.cc"/>
@@ -49,14 +45,6 @@
           <workingDirectory>bin</workingDirectory>
         </LocalBuildSettings>
       </ProjectProperties>
-      <FolderProperties>
-        <FolderResource>
-          <FolderPath>doc</FolderPath>
-          <FolderProperties>
-            <ExcludeFromBuild>true</ExcludeFromBuild>
-          </FolderProperties>
-        </FolderResource>
-      </FolderProperties>
     </Configuration>
   </Configurations>
 </TITAN_Project_File_Information>

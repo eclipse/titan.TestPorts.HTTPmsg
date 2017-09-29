@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_Types.ttcn
 //  Description:        HTTP port type definition
-//  Rev:                R8G
+//  Rev:                R9B
 //  Prodnr:             CNL 113 469
 
 
@@ -34,6 +34,8 @@ module HTTPmsg_PortType
     out     Listen;
     in      Listen_result;
     inout   Shutdown;
+    
+    in      Send_failed;
 
     // Message to send and receive
     inout   HTTPMessage;

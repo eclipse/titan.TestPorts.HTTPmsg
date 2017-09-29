@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.hh
 //  Description:        HTTP test port header file
-//  Rev:                R8G
+//  Rev:                R9B
 //  Prodnr:             CNL 113 469
 
 
@@ -109,6 +109,7 @@ protected:
     virtual void peer_disconnected(int client_id);
     virtual void peer_half_closed(int client_id);
     virtual void remove_client(int client_id);
+    virtual void report_unsent(int client_id, int msg_length, int sent_length, const unsigned char* msg, const char* error_text);
     
 // HTTP specific functions
     
@@ -131,6 +132,9 @@ private:
     bool server_use_ssl;
     
     bool use_notification_ASPs;
+    
+    bool use_send_failed;
+    const HTTPmsg__Types::HTTPMessage* last_msg;
 };
 //===================================
 //== Functions outside the class: ===

@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_Types.ttcn
 //  Description:        HTTP Message and TCP connection handling ASP types
-//  Rev:                R8G
+//  Rev:                R9B
 //  Prodnr:             CNL 113 469
 
 
@@ -149,5 +149,15 @@ type record Listen_result {
 };
 
 type record Shutdown {};
+
+// Used to report messages, which can't be sent because fo the broken connection
+// Set the "report_failed_message" test port parameter to "yes" to enable the sending of this message !!!!
+type record Send_failed {
+  HTTPMessage    msg,   // The unsent message
+  boolean        already_half_closed   // the connection already half closed
+                                       //  true: the test port already enqued the half_close message
+                                       //  false: the half_close is not enqued yet 
+}
+
 
 }

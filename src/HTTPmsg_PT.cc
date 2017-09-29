@@ -15,7 +15,7 @@
 //
 //  File:               HTTPmsg_PT.cc
 //  Description:        HTTP test port implementation
-//  Rev:                R8G
+//  Rev:                R9B
 //  Prodnr:             CNL 113 469
 
 
@@ -49,6 +49,8 @@ HTTPmsg__PT::HTTPmsg__PT(const char *par_port_name)
     
     set_ssl_use_ssl(true);
 #endif
+    use_send_failed = false;
+    last_msg = NULL;
 }
 
 HTTPmsg__PT::~HTTPmsg__PT()
@@ -64,6 +66,10 @@ void HTTPmsg__PT::set_parameter(const char *parameter_name,
         if (strcasecmp(parameter_value,"yes")==0) use_notification_ASPs = true;
         else if (strcasecmp(parameter_value,"no")==0) use_notification_ASPs = false;
         else log_error("Parameter value '%s' not recognized for parameter '%s'", parameter_value, use_notification_ASPs_name());
+    } else if(strcasecmp(parameter_name, "report_failed_message") == 0){
+        if (strcasecmp(parameter_value,"yes")==0) use_send_failed = true;
+        else if (strcasecmp(parameter_value,"no")==0) use_send_failed = false;
+        else log_error("Parameter value '%s' not recognized for parameter '%s'", parameter_value, "report_failed_message");
     }
     else if((strcasecmp(parameter_name, use_connection_ASPs_name()) == 0) || !parameter_set(parameter_name ,parameter_value)) {
         log_warning("HTTPmsg__PT::set_parameter(): Unsupported Test Port parameter: %s", parameter_name);
@@ -206,7 +212,8 @@ void HTTPmsg__PT::outgoing_send(const HTTPmsg__Types::HTTPMessage& send_par)
 
     TTCN_Buffer snd_buf;
     int client_id = -1;
-
+    last_msg = &send_par;
+    
     switch(send_par.get_selection())
     {
         case HTTPmsg__Types::HTTPMessage::ALT_request:
@@ -249,9 +256,22 @@ void HTTPmsg__PT::outgoing_send(const HTTPmsg__Types::HTTPMessage& send_par)
         send_outgoing(snd_buf.get_data(), snd_buf.get_len(), client_id);
     else
         send_outgoing(snd_buf.get_data(), snd_buf.get_len());
-
+    
+    last_msg = NULL;
     log_debug("leaving HTTPmsg__PT::outgoing_send(HTTPMessage)");
 }
+
+void HTTPmsg__PT::report_unsent(int client_id, int /*msg_length*/, int /*sent_length*/, const unsigned char* /*msg*/, const char* /*error_text*/)
+{
+  if(use_send_failed  && last_msg){
+    HTTPmsg__Types::Send__failed asp;
+    asp.msg()=*last_msg;
+    asp.already__half__closed()= (get_peer(client_id,true)->tcp_state) == CLOSE_WAIT ;
+    
+    incoming_message(asp);
+  }
+}
+
 
 void HTTPmsg__PT::client_connection_opened(int client_id)
 {
