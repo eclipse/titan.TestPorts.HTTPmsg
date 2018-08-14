@@ -2,9 +2,7 @@
 # of the TTCN-3 Test Executor version 1.7.pre0 build 2
 # for Attila Balasko (ethbaat@ehubuux110) on Mon Jan 15 16:28:23 2007
 
-# Copyright 2000-2006 Test Competence Center, Ericsson R & D, Hungary
-# For trouble reporting use the tool MTTSMS.
-# For TR writers guide please visit the web page: http://ttcn.ericsson.se
+# Copyright Ericsson Telecom AB 2000-2018
 
 # The following make commands are available:
 # - make, make all     Builds the executable test suite.
